@@ -10,9 +10,9 @@
   },
   "devDependencies": {
     "typescript": "~5.9.3",
-    "vite": "^7.2.4"
+    "vite": "^7.3.0"
   },
   "dependencies": {
-    "sliver-engine": "^0.0.1-alpha.0"
+    "sliver-engine": "^0.0.1-alpha.1"
   }
 }

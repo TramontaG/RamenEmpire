@@ -1,7 +1,9 @@
 import { CanvasController, type SpriteLibrary } from "sliver-engine";
 import {
+  createFaceAnimation,
   createSpriteAnimation,
   createUIspriteAnimation,
+  faceSpritesheetSize,
   spriteSize,
 } from "../Definitions/Sprites";
 
@@ -27,12 +29,10 @@ const loadSprites = async (library: SpriteLibrary) => {
     Object.entries(people).map(async ([path, url]) => {
       const name = getFileBaseName(path);
       const assetUrl = new URL(url, window.location.origin);
-      const [frameWidth, frameHeight] = spriteSize;
+      const [frameWidth, frameHeight] = name.startsWith("face:")
+        ? faceSpritesheetSize
+        : spriteSize;
 
-      if (path.toLowerCase().endsWith(".svg")) {
-        await library.loadSvgSprite(name, assetUrl.toString());
-        return name;
-      }
       await library.loadSpriteSheet(name, assetUrl, frameWidth, frameHeight);
 
       return name;
@@ -61,8 +61,10 @@ const loadSprites = async (library: SpriteLibrary) => {
     (acc, name) => {
       if (name.startsWith("ui:")) {
         acc.ui[name] = createUIspriteAnimation(name);
-      } else {
-        acc.people[name] = createSpriteAnimation(name);
+      }
+
+      if (name.startsWith("face:")) {
+        acc.faces[name] = createFaceAnimation();
       }
 
       return acc;
@@ -70,9 +72,11 @@ const loadSprites = async (library: SpriteLibrary) => {
     {
       ui: {},
       people: {},
+      faces: {},
     } as {
       ui: Record<string, ReturnType<typeof createUIspriteAnimation>>;
       people: Record<string, ReturnType<typeof createSpriteAnimation>>;
+      faces: Record<string, ReturnType<typeof createFaceAnimation>>;
     }
   );
 };

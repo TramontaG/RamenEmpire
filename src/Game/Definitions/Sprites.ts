@@ -108,6 +108,14 @@ export const createSpriteAnimation = (name: string) => {
   };
 };
 
+export const createFaceAnimation = () => {
+  return {
+    talking: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    yes: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    no: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+  };
+};
+
 export const createUIspriteAnimation = (name: string) => {
   if (!name.startsWith("ui:")) {
     throw new Error(
@@ -125,3 +133,4 @@ export const createUIspriteAnimation = (name: string) => {
 export const spriteSize = [16, 16] as const;
 export const kidSpritesheetSize = [16, 32] as const;
 export const adultSpritesheetSize = [16, 32] as const;
+export const faceSpritesheetSize = [32, 32] as const;

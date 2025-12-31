@@ -1,8 +1,9 @@
-import { Scene, SceneManager } from "sliver-engine";
-import { startGameScene } from "./StartGame";
+import { SceneManager } from "sliver-engine";
+import { startGameScene } from "./StartGame/GameObjects";
+import { introScene } from "./IntroCutscene";
 
 const createScenes = () => {
-  return [{ startGameScene }, startGameScene] as const;
+  return [{ startGameScene, introScene }, startGameScene] as const;
 };
 
 const createSceneManager = () => {
